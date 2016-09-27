@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view contentType="text/html">
+        <h:head>
+
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>                
+                <link href="#{request.contextPath}/resource/css/styles.css" rel="stylesheet" type="text/css" />    
+                <title><ui:insert name="title">Exit Strategy</ui:insert></title>    
+            </f:facet>        
+        </h:head>
+        <h:body> 
+            <p:layout fullPage="true" >
+                <p:layoutUnit position="north" size="100" resizable="true" closable="true" collapsible="true" styleClass="">                    
+                    <table width="100%" align="left" border="0" >
+                        <tr bgcolor="#EBEBFF" >                                                        
+                            <td><h:graphicImage  title="BITPLANET" value="/resources/images/scantranx_logo.png"/> <h:outputLabel value="Exit Strategy"/></td>                            
+                        </tr>
+                    </table>
+                </p:layoutUnit>
+
+                <p:layoutUnit position="center" >                    
+                    <h:form >
+                        <p:growl id="messages" showDetail="true" />
+                        <table width="40%" align="center" style="margin: 60px 0px 0px 120px">
+                            <tr>
+                                <td id="top" align="center">
+                            <p:panelGrid columns="2" style="alignment-adjust: middle">
+                                <f:facet name="header">User Login</f:facet>
+                                <h:outputLabel for="username" value="username: " />
+                                <p:inputText id="username" value="#{loginMBean.userid}" label="Username" required="true" style="width:200px; height: 15px"
+                                             requiredMessage="Please enter a valid userid"/>
+
+                                <h:outputLabel for="password" value="Password : "/>
+                                <p:password id="password" value="#{loginMBean.password}" label="Password" required="true" style="width:200px; height: 15px"
+                                            requiredMessage="Please enter a valid password"/>
+                                <f:facet name="footer">
+                                    <p:commandButton icon="ui-icon-locked" value="Login" action="#{loginMBean.login2FA()}" update="messages" />
+                                </f:facet>
+                            </p:panelGrid>
+                            </td>
+                            </tr>
+                        </table>
+                    </h:form>
+                </p:layoutUnit>
+                <p:layoutUnit position="south" size="50" closable="true" collapsible="true">
+                    <h:form id="footer">
+                        <table width="100%" cellspacing="0" cellpadding="0">
+                            <tr>
+                                <td align="left" valign="bottom" colspan="2">
+                                    <strong>Copyright © #{footerMBean.copyRightPeriod} All rights reserved |  <a href="#" target="_blank">
+                                            <u>Terms of Use</u></a> | <a href="#" target="_blank"><u>Privacy </u></a></strong>
+                                    <span style="float:right"><a href="#" target="_blank"><em><strong>Powered by BitPlanet Nig. Ltd</strong>.</em></a></span></td>
+                            </tr>
+                        </table>
+                    </h:form>
+                </p:layoutUnit>
+            </p:layout>
+
+
+
+        </h:body>
+
+    </f:view>
+</html>

@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<!-- =========== FULL CONFIGURATION FILE ================================== -->
+
+<pretty-config xmlns="http://ocpsoft.org/prettyfaces/3.3.3" 
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+               xsi:schemaLocation="http://ocpsoft.org/prettyfaces/3.3.3  http://ocpsoft.org/xml/ns/prettyfaces/ocpsoft-pretty-faces-3.3.3.xsd">
+
+    
+    <url-mapping id="campaigndetails">
+        <pattern value="/campaigndetails" />
+        <view-id value="/faces/campaigndetails.xhtml"/>        
+    </url-mapping>
+    <url-mapping id="transactions">
+        <pattern value="/transactions" />
+        <view-id value="/faces/transactions.xhtml"/>        
+    </url-mapping>
+    <url-mapping id="mycampaigns">
+        <pattern value="/mycampaigns" />
+        <view-id value="/faces/mycampaigns.xhtml"/>        
+    </url-mapping>   
+    <url-mapping id="home">
+        <pattern value="/home" />
+        <view-id value="/faces/home.xhtml"/>      
+    </url-mapping> 
+    <url-mapping id="customers">
+        <pattern value="/customers" />
+        <view-id value="/faces/customers.xhtml"/>      
+    </url-mapping> 
+    <url-mapping id="campaigns">
+        <pattern value="/campaigns" />
+        <view-id value="/faces/campaigns.xhtml"/>      
+    </url-mapping>
+    <url-mapping id="layout">
+        <pattern value="/layout" />
+        <view-id value="/faces/layout.xhtml"/>      
+    </url-mapping>
+    <url-mapping id="testing">
+        <pattern value="/testing" />
+        <view-id value="/faces/testing.xhtml"/>      
+    </url-mapping>
+</pretty-config>

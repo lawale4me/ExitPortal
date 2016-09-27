@@ -1,0 +1,128 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<ui:composition template="layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                >
+
+    <ui:define name="title">Create Campaigns</ui:define>
+    <ui:define name="content">                    
+                                                                                                
+            <h:form enctype="multipart/form-data" >    
+            <p:growl id="messages" showDetail="true"/>            
+            <p:wizard widgetVar="wiz" flowListener="#{campaignMBean.onFlowProcess}">                 
+                <p:tab id="campaign" title="New Campaign">
+                    <p:panel header="Campaign Details">
+                        <p:messages />
+                        <h:panelGrid  columns="2" cellpadding="4">
+                            <f:facet name="header">
+                                <p:outputPanel>
+                                    <h:outputText value="Create Campaigns Here:" />                                    
+                                </p:outputPanel>
+                            </f:facet>                                
+
+                            <h:outputText  value="Campaign Name" />                           
+                            <h:inputText value="#{campaignMBean.campaignname}" size="40" required="true" id="campaignname"/>
+                            <h:outputText value="Subject" />
+                            <h:inputText value="#{campaignMBean.subject}" size="40"  required="true"  id="subject"/>                                                                                                                                
+                            <h:outputText value="Content"  />
+                            <h:inputTextarea  value="#{campaignMBean.content}" cols="40" required="true" id="campaignContent" rows="5"/>                                                                  
+                            <h:outputText value="Campaign Logo"  />                                                                                                                                 
+                            <h:inputFile value="#{campaignMBean.file}" />
+                        </h:panelGrid>
+                    </p:panel>
+                </p:tab>
+                <p:tab id="criteria" title="Criteria">
+                    <p:panel header="Campaign Creiteria">
+                        <p:messages />
+                        <h:panelGrid columns="2"  columnClasses="label, value">   
+                            <p:outputLabel for="advanced" value="Branches:" />                                
+                            <h:selectManyListbox   id="advanced" value="#{campaignMBean.selectedItems}">
+                                <f:selectItems  value="#{campaignMBean.branches}" var="branch" itemLabel="#{branch.branchName}" itemValue="#{branch}" />
+                                <h:column>                                
+                                    <h:outputText value="#{t.branchName}" />
+                                </h:column>
+                            </h:selectManyListbox>
+                            <h:outputText value="Min Deposit" />                            
+                            <p:spinner size="40" required="true" id="mindeposit" value="#{campaignMBean.mindeposit}" prefix="NGN "  />
+                        </h:panelGrid>
+                    </p:panel>
+                </p:tab>
+                <p:tab id="filters" title="Filters">
+                    <p:panel header="Campaign Filters">
+                        <p:messages />
+                        <h:panelGrid columns="2" columnClasses="label, value">                
+
+                            <h:outputText value="Frequency" />
+                            <p:selectOneMenu  required="true" value="#{campaignMBean.frequency}" effect="drop">  
+                                <f:selectItem itemLabel="Select One" itemValue="" />      
+                                <f:selectItem itemLabel="Once" itemValue="Once" />  
+                                <f:selectItem itemLabel="Daily" itemValue="Daily" />  
+                                <f:selectItem itemLabel="Weekly" itemValue="Weekly" />                                      
+                            </p:selectOneMenu>                                                                                                
+
+
+                            <h:outputText value="opendate" />                                
+                            <p:calendar required="true" size="40" value="#{campaignMBean.opendate}" pattern="dd.MM.yyyy" />                                
+
+                            <h:outputText value="closedate" />   
+                            <p:calendar required="true" size="40" value="#{campaignMBean.closedate}" pattern="dd.MM.yyyy" />                                
+
+                            <h:outputText value="Campaign Type" />     
+                            <p:selectOneMenu   required="true" value="#{campaignMBean.campaigntype}" effect="drop">  
+                                <f:selectItem itemLabel="Select One" itemValue="" />      
+                                <f:selectItem itemLabel="TargetAudience" itemValue="TargetAudience" />  
+                                <f:selectItem itemLabel="DynamicAudience" itemValue="DynamicAudience" />                                      
+                            </p:selectOneMenu>
+
+                        </h:panelGrid>
+                    </p:panel>
+                </p:tab>
+
+                <p:tab id="confirm" title="Confirmation">
+                    <p:panel header="Confirmation">
+                        <h:panelGrid id="confirmation" columns="3" columnClasses="grid,grid,grid">
+                            <h:panelGrid columns="2" columnClasses="label, value">
+                                <h:outputText value="CampiagnName: " />
+                                <h:outputText value="#{campaignMBean.campaignname}" styleClass="outputLabel"/>
+
+                                <h:outputText value="Content: " />
+                                <h:outputText value="#{campaignMBean.content}" styleClass="outputLabel"/>
+
+                                <h:outputText value="Subject: " />
+                                <h:outputText value="#{campaignMBean.subject}" styleClass="outputLabel"/>
+                            </h:panelGrid>
+
+                            <h:panelGrid columns="2" columnClasses="label, value">
+                                <h:outputText value="Campaign Type: " />
+                                <h:outputText value="#{campaignMBean.campaigntype}" styleClass="outputLabel"/>
+
+                                <h:outputText value="Open Date: " />
+                                <h:outputText value="#{campaignMBean.opendate}" styleClass="outputLabel"/>
+
+                                <h:outputText value="Close Date: " />
+                                <h:outputText value="#{campaignMBean.closedate}" styleClass="outputLabel"/>
+                            </h:panelGrid>
+
+                            <h:panelGrid columns="2" columnClasses="label, value">
+                                <h:outputText value="Min Amount: " />
+                                <h:outputText value="#{campaignMBean.mindeposit}" styleClass="outputLabel"/>
+                                
+                                <h:outputText value="File: " />
+                                <h:outputText value="#{campaignMBean.file.fileName}" styleClass="outputLabel"/>
+
+                                <h:outputText value="Frequency: " />
+                                <h:outputText value="#{campaignMBean.frequency}" styleClass="outputLabel"/>
+
+                            </h:panelGrid>
+                        </h:panelGrid>                        
+                        <p:commandButton  ajax="true" value="Submit" actionListener="#{campaignMBean.upload()}" update="messages" oncomplete="PF('wiz').loadStep('campaign',false)" />                        
+                    </p:panel>
+                </p:tab>                
+            </p:wizard>
+            
+            </h:form>        
+    </ui:define>
+</ui:composition>

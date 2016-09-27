@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<ui:composition template="layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                >
+    
+      <ui:define name="title">Transactions</ui:define>
+    <ui:define name="content">             
+             <h:form id="form">
+                        <p:dataTable var="tranx" value="#{transactionBean.tranxs}" widgetVar="transactionsTable"
+                                     selection="#{transactionBean.selectedTranx}" paginator="true" selectionMode="single" 
+                                     rowKey="#{tranx.id}" sortBy="#{tranx.trxnDate}"  sortOrder="descending"  rows="10" filteredValue="#{transactionBean.filteredTranx}" >                                                                                                         
+                            <f:facet name="header">
+                                Click "View" button after selecting a row to see details
+                            </f:facet>
+                            <p:column sortBy="#{tranx.action}" >
+                                <f:facet name="header">
+                                    <h:outputText value="Action" />
+                                </f:facet>
+                                <h:outputText value="#{tranx.action}" />
+                            </p:column>
+
+                            <p:column sortBy="#{tranx.amount}">
+                                <f:facet name="header">
+                                    <h:outputText value="Amount" />
+                                </f:facet>
+                                <h:outputText value="#{tranx.amount}" />
+                            </p:column>
+
+                            <p:column sortBy="#{tranx.location}">
+                                <f:facet name="header">
+                                    <h:outputText value="Location" />
+                                </f:facet>
+                                <h:outputText value="#{tranx.location}" />
+                            </p:column>
+
+                            <p:column sortBy="#{tranx.status}">
+                                <f:facet name="header">
+                                    <h:outputText value="Status" />
+                                </f:facet>
+                                <h:outputText value="#{tranx.status}" />
+                            </p:column>
+
+                            <f:facet name="footer">
+                                <p:commandButton id="footercmbtn" value="View" image="ui-icon ui-icon-search"                                                 
+                                                 update=":form:tranxDetail" oncomplete="PF('tranxDialog').show()"/>                                
+                            </f:facet>
+
+                        </p:dataTable>
+
+                        <p:dialog header="Tranx Detail" widgetVar="tranxDialog" resizable="false"
+                                  width="200" showEffect="clip" hideEffect="fold">
+                                                  
+
+                            <h:panelGrid id="tranxDetail" columns="2" cellpadding="4">
+                                <f:facet name="header">                                    
+                                </f:facet>
+                                <h:outputText value="Amount:" />
+                                <h:outputText value="#{transactionBean.selectedTranx.amount}" />
+
+                                <h:outputText value="Beneficiary:" />
+                                <h:outputText value="#{transactionBean.selectedTranx.beneficiary}" />
+
+                                <h:outputText value="Details:" />
+                                <h:outputText value="#{transactionBean.selectedTranx.details}" />
+
+                                <h:outputText value="Location:" />
+                                <h:outputText value="#{transactionBean.selectedTranx.location}" />
+                            </h:panelGrid>
+                        </p:dialog>
+
+                    </h:form>
+    </ui:define>
+</ui:composition>
+

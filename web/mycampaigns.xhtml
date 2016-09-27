@@ -1,0 +1,105 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<ui:composition template="layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                >
+    <ui:define name="title">
+        View Campaigns
+    </ui:define>
+    
+    <ui:define name="content">
+        <h:form id="form">                        
+            <p:dataTable var="mycampaign" value="#{myCampaignMBean.campaignDetails}" widgetVar="campaignsTable"
+                         selection="#{myCampaignMBean.selectedCampaignDetails}" selectionMode="single"  
+                         rowKey="#{mycampaign.batch.id}" filteredValue="#{myCampaignMBean.fileredCampaigns}" rows="5" 
+                          >
+                
+                
+                <p:ajax event="rowSelect"  listener="#{myCampaignMBean.onRowSelect}" />                                                
+                
+                
+                <f:facet name="header">
+                    <p:outputPanel>
+                        <h:outputText value="Search all fields:" />
+                        <p:inputText id="globalFilter" onkeyup="PF('campaignsTable').filter()" style="width:150px" placeholder="Enter keyword"/>
+                    </p:outputPanel>
+                </f:facet>
+                <p:column filterBy="#{mycampaign.batch.batchdate}" headerText="Date" filterMatchMode="contains">
+                    <f:facet name="header">
+                        <h:outputText value="Campaign Date" />
+                    </f:facet>
+                    <h:outputText value="#{mycampaign.batch.batchdate}" />
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Campaign Name" />
+                    </f:facet>
+                    <h:outputText value="#{mycampaign.batch.campaignname}" />
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Campaign Type" />
+                    </f:facet>
+                    <h:outputText value="#{mycampaign.batch.campaigntype}" />
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Campaign Details" />
+                    </f:facet>
+                    <h:outputText value="#{mycampaign.batch.campaigndetails}" />
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Campaign Name" />
+                    </f:facet>
+                    <h:outputText value="#{mycampaign.batch.message}" />
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Campaign Open Date" />
+                    </f:facet>
+                    <h:outputText value="#{mycampaign.batch.opendate}" />
+                </p:column>                 
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Campaign Close Date" />
+                    </f:facet>
+                    <h:outputText value="#{mycampaign.batch.closedate}" />
+                </p:column>                
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Status" />
+                    </f:facet>
+                    <h:outputText value="#{mycampaign.batch.status}" />
+                </p:column>                                                                       
+                <f:facet name="footer">
+                    <p:commandButton value="View" icon="ui-icon ui-icon-search"                                                 
+                                     update=":form:loyalityDetail" oncomplete="PF('loyalityDialog').show()"/>
+                </f:facet>                                                   
+            </p:dataTable>
+
+            <p:dialog header="Tranx Detail" widgetVar="loyalityDialog" resizable="false"
+                      width="400" showEffect="clip" hideEffect="fold">
+                <h:panelGrid id="loyalityDetail" columns="2" cellpadding="4">
+                    <f:facet name="header">
+                    </f:facet>
+                    <h:outputText value="Merchant Name" />
+                    <h:outputText value="#{myCampaignMBean.selectedCampaignDetails.batch.merchantid.merchantName}" />
+                    <h:outputText value="Min Deposit" />
+                    <h:outputText value="#{myCampaignMBean.selectedCampaignDetails.batch.mindeposit}" />
+                    <h:outputText value="Total Sent" />
+                    <h:outputText value="#{myCampaignMBean.selectedCampaignDetails.readStatus}" />
+                    <h:outputText value="Total Read" />
+                    <h:outputText value="#{myCampaignMBean.selectedCampaignDetails.readStatus}" />
+                    <h:outputText value="Total Redeem" />
+                    <h:outputText value="#{myCampaignMBean.selectedCampaignDetails.redeemStatus}" />   
+                                        
+                </h:panelGrid>
+            </p:dialog>
+
+        </h:form>        
+    </ui:define>
+</ui:composition>

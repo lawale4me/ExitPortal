@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<ui:composition template="layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                >
+    <ui:define name="title">
+        Campaigns Details
+    </ui:define>
+    
+    <ui:define name="content">
+        <h:panelGrid id="display" columns="2" cellpadding="4">  
+                   
+       <p:column>
+       <p:panel id="detailspanel" header="Campaigns Details">
+       <h:panelGrid id="campdetails" columns="2" cellpadding="4">  
+        
+        <h:outputText value="MerchantName" />  
+        <h:outputText value="#{flash.selectedCampaignDetails.batch.merchantid.merchantName}" style="font-weight:bold"/>    
+                
+        <h:outputText value="Name" />  
+        <h:outputText value="#{flash.selectedCampaignDetails.batch.campaignname}" style="font-weight:bold"/>  
+        
+        <h:outputText value="Message" />  
+        <h:outputText value="#{flash.selectedCampaignDetails.batch.message}" style="font-weight:bold"/>            
+        
+        <h:outputText value="Read Status" />  
+        <h:outputText value="#{flash.selectedCampaignDetails.readStatus}" style="font-weight:bold"/>    
+        
+        <h:outputText value="Sent Status" />  
+        <h:outputText value="#{flash.selectedCampaignDetails.sentStatus}" style="font-weight:bold"/>    
+        
+        <h:outputText value="Redeem Status" />  
+        <h:outputText value="#{flash.selectedCampaignDetails.redeemStatus}" style="font-weight:bold"/>                    
+        
+        <h:outputText value="Minimum Deposit" />  
+        <h:outputText value="#{flash.selectedCampaignDetails.batch.mindeposit}" style="font-weight:bold"/>    
+        
+        <h:outputText value="Campaign Details" />  
+        <h:outputText value="#{flash.selectedCampaignDetails.batch.campaigndetails}" style="font-weight:bold"/>    
+        
+        
+        <h:outputText value="Open Date" />  
+        <h:outputText value="#{flash.selectedCampaignDetails.batch.opendate}" style="font-weight:bold"/>  
+        
+        <h:outputText value="Closing Date" />  
+        <h:outputText value="#{flash.selectedCampaignDetails.batch.closedate}" style="font-weight:bold"/>          
+       </h:panelGrid>
+           </p:panel> 
+       </p:column>                          
+        <p:column>
+       <p:panel id="chartpanel" >
+         <p:chart type="pie" model="#{flash.pieModel1}"   style="width:400px;height:300px" /> 
+         </p:panel>
+       </p:column>
+        
+    </h:panelGrid>    
+             
+    </ui:define>
+</ui:composition>
